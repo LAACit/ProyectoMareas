@@ -59,21 +59,12 @@ GraficaFranja <- ggplot(Franja, aes(x=Franja$Fecha.Tiempo..GMT.05.00, y=Franja$P
 grid.arrange(GraficaChaparro, GraficaAvicenias, GraficaFranja,GraficaMareaCelestun, nrow = 4)
 
 
-
-#######################33
-
-ggplot(Franja, aes(x=Franja$Fecha.Tiempo..GMT.05.00, y=Franja$Pres.abs..mbar..LGR.S.N..20081790..SEN.S.N..20081790.))+
-  geom_line()+
-  xlab("")+
-  ylab("Presión (mbar)")+
-  
-  ggtitle("Franja")+
+ggplot() +
+  geom_line(data= Franja, aes(x=Franja$Fecha.Tiempo..GMT.05.00, y=Franja$Pres.abs..mbar..LGR.S.N..20081790..SEN.S.N..20081790.,color='Franja')) +
+  geom_line(data= Avicenias, aes(x=Avicenias$Fecha.Tiempo..GMT.05.00, y=Avicenias$Pres.abs..mbar..LGR.S.N..20158088..SEN.S.N..20158088., color='Avicenias')) + 
+  geom_line(data= Chaparro, aes(x=Chaparro$Tiempo, y= Chaparro$Presión, color='Chaparro'))+
+  xlab('Fecha')+
+  ylab('Presión (mbar)')+
   theme_bw()+
-  geom_line(dfMAreas , aes(x= dfMAreas$MareaTiempoCelestun, y= dfMAreas$MareaCelestunVector))+
-  geom_line()+
-  xlab("")+
-  ylab("Presión (mbar)")+
-  ggtitle("Marea Celestún")+
-  theme_bw()
-
-
+  ggtitle("Nivel de inundación manglares") +
+  theme(plot.title = element_text(hjust = 0.5))
