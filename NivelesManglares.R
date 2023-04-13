@@ -56,8 +56,10 @@ GraficaFranja <- ggplot(Franja, aes(x=Franja$Fecha.Tiempo..GMT.05.00, y=Franja$P
   ggtitle("Franja")+
   theme_bw()
 
+#Se hace una grafica donde se muestran los niveles de daca serie de datos
 grid.arrange(GraficaChaparro, GraficaAvicenias, GraficaFranja,GraficaMareaCelestun, nrow = 4)
 
+#Ahora se hace una grafica para cada manglar dentro de una misma 
 
 ggplot() +
   geom_line(data= Franja, aes(x=Franja$Fecha.Tiempo..GMT.05.00, y=Franja$Pres.abs..mbar..LGR.S.N..20081790..SEN.S.N..20081790.,color='Franja')) +
