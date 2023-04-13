@@ -6,7 +6,8 @@ library(viridis)
 Avicenias <- read.csv("../DatosMAnglar/Avicenias.csv")
 
 Avicenias$Fecha.Tiempo..GMT.05.00 <- as.POSIXct(strptime(Avicenias$Fecha.Tiempo..GMT.05.00, format = "%m/%d/%Y %I:%M:%S %p"))
-str(Avicenias)
+
+#str(Avicenias)
 
 Chaparro <- read.csv("../DatosMAnglar/Chaparro.csv")
 Chaparro$Tiempo <- paste(Chaparro$Fecha,Chaparro$Hora,Chaparro$PM)
@@ -61,7 +62,7 @@ grid.arrange(GraficaChaparro, GraficaAvicenias, GraficaFranja,GraficaMareaCelest
 
 #Ahora se hace una grafica para cada manglar dentro de una misma 
 
-Manglares <- ggplot() +
+Manglares <-ggplot() +
   geom_line(data= Franja, aes(x=Franja$Fecha.Tiempo..GMT.05.00, y=Franja$Pres.abs..mbar..LGR.S.N..20081790..SEN.S.N..20081790.,color='Franja')) +
   geom_line(data= Avicenias, aes(x=Avicenias$Fecha.Tiempo..GMT.05.00, y=Avicenias$Pres.abs..mbar..LGR.S.N..20158088..SEN.S.N..20158088., color='Avicenias')) + 
   geom_line(data= Chaparro, aes(x=Chaparro$Tiempo, y= Chaparro$Presión, color='Chaparro'))+

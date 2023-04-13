@@ -39,7 +39,7 @@ dfMAreas <- data.frame(MareaCelestunVector,MareaTiempoCelestun)
 #Se hace un corte a las 16 hrs ya que los niveles de manglares comienzan a 16:35 
 dfMareasCelestun <- dfMAreas[-1:-16,]
 
-GraficaMareaCelestun<- ggplot(dfMareasCelestun , aes(x= dfMareasCelestun$MareaTiempoCelestun, y= dfMareasCelestun$MareaCelestunVector))+
+GraficaMareaCelestun<- ggplot(dfMareasCelestun , aes(x= dfMareasCelestun$MareaTiempoCelestun, y= dfMareasCelestun$MareaCelestunVector, color = "Marea"))+
   geom_line()+
   xlab("")+
   ylab("Presión (mbar)")+
