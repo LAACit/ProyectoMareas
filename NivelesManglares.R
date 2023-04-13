@@ -22,7 +22,7 @@ Chaparro <- Chaparro[-1:-2,]
 Avicenias <- Avicenias[-1:-3,]
 dfMAreas <- dfMAreas[-1:-16,]
 
-
+r
 
 #Explorando los datos vemos que estan en mbar y que estos incluyen la presión atmosferica. Entonces lo que se hace es restar la presión 
 

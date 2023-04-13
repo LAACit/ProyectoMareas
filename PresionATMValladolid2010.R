@@ -22,3 +22,4 @@ GraficaPATMValla<- ggplot(PresionDiciembre, aes(x = PresionDiciembre$Fecha.Tiemp
   ylab("Presión (mbar) ")+
   ggtitle("Presión Atmosferica Valladolid ")+
   theme_bw()
+r
