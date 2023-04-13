@@ -61,7 +61,7 @@ grid.arrange(GraficaChaparro, GraficaAvicenias, GraficaFranja,GraficaMareaCelest
 
 #Ahora se hace una grafica para cada manglar dentro de una misma 
 
-ggplot() +
+Manglares <- ggplot() +
   geom_line(data= Franja, aes(x=Franja$Fecha.Tiempo..GMT.05.00, y=Franja$Pres.abs..mbar..LGR.S.N..20081790..SEN.S.N..20081790.,color='Franja')) +
   geom_line(data= Avicenias, aes(x=Avicenias$Fecha.Tiempo..GMT.05.00, y=Avicenias$Pres.abs..mbar..LGR.S.N..20158088..SEN.S.N..20158088., color='Avicenias')) + 
   geom_line(data= Chaparro, aes(x=Chaparro$Tiempo, y= Chaparro$Presión, color='Chaparro'))+
@@ -70,3 +70,5 @@ ggplot() +
   theme_bw()+
   ggtitle("Nivel de inundación manglares") +
   theme(plot.title = element_text(hjust = 0.5))
+
+grid.arrange(Manglares, GraficaMareaCelestun, nrow=2)
