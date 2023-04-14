@@ -52,7 +52,7 @@ GraficaMareaCelestun <- ggplot(dfMareasCelestun , aes(x= dfMareasCelestun$MareaT
   ggtitle("Marea Celestún (sin presión atm)")+
   theme_bw()
 
-#dfMareasCelestun es el df donde vamos a trabajar 
+##dfMareasCelestun es el df donde vamos a trabajar 
 
 rm(MareografoCelestun)
 rm(MareaCelestunDiciembre)
