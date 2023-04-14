@@ -33,15 +33,37 @@ for (i in 1:23) {
   y <- MareaCelestunVector
 }
 
+#aqui eliminamos el promedio de la presion ATMS de valladolid 1013 mbar
+
 MareaCelestunVector <- MareaCelestunVector - 1013
+
 dfMAreas <- data.frame(MareaCelestunVector,MareaTiempoCelestun)
 
 #Se hace un corte a las 16 hrs ya que los niveles de manglares comienzan a 16:35 
 dfMareasCelestun <- dfMAreas[-1:-16,]
 
-GraficaMareaCelestun<- ggplot(dfMareasCelestun , aes(x= dfMareasCelestun$MareaTiempoCelestun, y= dfMareasCelestun$MareaCelestunVector, color = "Marea"))+
+
+#Graficamos 
+
+GraficaMareaCelestun <- ggplot(dfMareasCelestun , aes(x= dfMareasCelestun$MareaTiempoCelestun, y= dfMareasCelestun$MareaCelestunVector, color = "Marea"))+
   geom_line()+
   xlab("")+
   ylab("Presión (mbar)")+
   ggtitle("Marea Celestún (sin presión atm)")+
   theme_bw()
+
+#dfMareasCelestun es el df donde vamos a trabajar 
+
+rm(MareografoCelestun)
+rm(MareaCelestunDiciembre)
+rm(t1)
+rm(t2)
+rm(MareaTiempoCelestun)
+rm(MareaCelestunVector)
+rm(dfMAreas)
+rm(i)
+rm(y)
+
+# quedamos sólo con el df de la marea de celestun  :) 
+
+
