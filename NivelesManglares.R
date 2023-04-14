@@ -1,10 +1,19 @@
+library(viridis)
+library(gridExtra)
+library(tidyverse)
+library(readxl)
 library(ggplot2)
 library(lubridate)
-library(viridis)
 
+#Corremos el scrip de Marea de celestun para tener el dfMareasCelestun 
+source("MareaCelestun.R")
+source("PresionATMValladolid2010.R")
+
+#EXPLORACIÓN DE DATOS ####
+
+#Abrimos los datos y los hacemos en una señal de tiempo. 
 
 Avicenias <- read.csv("../DatosMAnglar/Avicenias.csv")
-
 Avicenias$Fecha.Tiempo..GMT.05.00 <- as.POSIXct(strptime(Avicenias$Fecha.Tiempo..GMT.05.00, format = "%m/%d/%Y %I:%M:%S %p"))
 
 #str(Avicenias)
@@ -13,21 +22,23 @@ Chaparro <- read.csv("../DatosMAnglar/Chaparro.csv")
 Chaparro$Tiempo <- paste(Chaparro$Fecha,Chaparro$Hora,Chaparro$PM)
 Chaparro$Tiempo <- as.POSIXct((strptime(Chaparro$Tiempo, format = "%m/%d/%Y %I:%M:%S %p")))
 
+#str(Chaparro)
+
 Franja <- read.csv("../DatosMAnglar/Franja_Cel.csv")
 Franja$Fecha.Tiempo..GMT.05.00 <- as.POSIXct(strptime(Franja$Fecha.Tiempo..GMT.05.00, format = "%m/%d/%Y %I:%M:%S %p"))
 
+#str(Franja)
 
-#Viendo los datos de manglar vemos que tienen diferentes horarios de inicio de mediciones. Hacemos el corte a una hora similar para todos los manglares y para los nuivles de marea 
+
+#Viendo los datos de manglar vemos que tienen diferentes horarios de inicio de mediciones. Hacemos el corte a una hora similar para todos los manglares
+
 
 Chaparro <- Chaparro[-1:-2,]
 Avicenias <- Avicenias[-1:-3,]
-dfMAreas <- dfMAreas[-1:-16,]
+#Franaj fue referencia a 16:65 hrs 
 
+#Explorando los datos vemos que estan en mbar y que estos incluyen la presión atmosferica. Entonces lo que se hace es restar la presión promedio de Valladolid que se obtiene del scrip PresionATMValladolid2010.R Promedio=1012 mbar 
 
-
-#Explorando los datos vemos que estan en mbar y que estos incluyen la presión atmosferica. Entonces lo que se hace es restar la presión 
-
-### Ahora hacemos una resta de la presión atm en mBar a los datos de presión de los manglares (1 aTM a nivel del mar = 1013 mbar) 
 
 Avicenias$Pres.abs..mbar..LGR.S.N..20158088..SEN.S.N..20158088.<- Avicenias$Pres.abs..mbar..LGR.S.N..20158088..SEN.S.N..20158088.- PresionPromedioDiciembreValla
 
@@ -73,3 +84,6 @@ Manglares <-ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 
 grid.arrange(Manglares, GraficaMareaCelestun, nrow=2)
+
+
+
