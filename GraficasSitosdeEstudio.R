@@ -5,7 +5,7 @@ library(ggplot2)
 
 
 #Importamos los datos en este caso los csv del 2018 
-setwd("./Datos_Hobboq/Datos_Hobbo/Datos_Acomodados_CelCop/2018/")
+#setwd("./Datos_Hobboq/Datos_Hobbo/Datos_Acomodados_CelCop/2018/")
 
 temp = list.files(pattern="*.csv")
 for (i in 1:length(temp)) assign(temp[i], read.csv(temp[i]))
@@ -111,9 +111,9 @@ geom_line(data=Franja_Cel_20JunJul18.csv, aes(x=Fecha..GMT.06.00, y=X.mbar..pres
    scale_x_datetime(limits = c(as.POSIXct("2018-03-18"), as.POSIXct("2018-08-25")))
 
 
-grid.arrange(GAvi18, GChap18,GFranja18, nrow=3)
+#grid.arrange(GAvi18, GChap18,GFranja18, nrow=3)
 
-grid.arrange(GAvi18, GChap18,GFranja18, nrow=3)
+#grid.arrange(GAvi18, GChap18,GFranja18, nrow=3)
   
 
 #Ahora cuencas 
@@ -155,8 +155,122 @@ ggplot()+
   theme(plot.title = element_text(hjust = 0.5))+
   scale_x_datetime(limits = c(as.POSIXct("2018-03-18"), as.POSIXct("2018-08-25")))
 
+
+#grid.arrange(GCuenAden18,GCuenAfuera18, nrow=2)
+
+
+
+#Podemos hacer un df donde se incluyan todos los valores 
+
+
+Avicenias_11junio18.csv<- Avicenias_11junio18.csv[,2:4]
+Avicenias_11junio18.csv$Tipo <- c("Avicenias")
+Avicenias_11junio18.csv$archivo<- c("Avicenias_11junio18")
+
+
+Avicenias_20JunJul18.csv<-Avicenias_20JunJul18.csv[,2:4]
+Avicenias_20JunJul18.csv$Tipo <- c("Avicenias")
+Avicenias_20JunJul18.csv$archivo <- c("Avicenias_20JunJul18")
+
+Avicenias_24AgoSep18.csv<-Avicenias_24AgoSep18.csv[,2:4]
+Avicenias_24AgoSep18.csv$Tipo <- c("Avicenias")
+Avicenias_24AgoSep18.csv$archivo<-c("Avicenias_24AgoSep18")
+
+Avicenias_24May18.csv<-Avicenias_24May18.csv[,2:4]
+Avicenias_24May18.csv$Tipo <- c("Avicenias")
+Avicenias_24May18.csv$archivo <- c("Avicenias_24May18")
+
+Avicenias_abril18.csv<-Avicenias_abril18.csv[,2:4]
+Avicenias_abril18.csv$Tipo <- c("Avicenias")
+Avicenias_abril18.csv$archivo <- c("Avicenias_abril18")
+
+Avicenias <- rbind(Avicenias_11junio18.csv,Avicenias_20JunJul18.csv, Avicenias_24AgoSep18.csv,Avicenias_24May18.csv,Avicenias_abril18.csv) 
+
+colnames(Avicenias) <- c("fecha","presion","temp", "tipo","archivo")
+str(Avicenias)
+
+
+Chaparro_11junio18.csv<-Chaparro_11junio18.csv[,2:4]
+Chaparro_11junio18.csv$tipo<-c("Chaparro")
+Chaparro_11junio18.csv$archivo<- c("Chaparro_11junio18.csv")
+
+Chaparro_20JunJul18.csv<-Chaparro_20JunJul18.csv[,2:4]
+Chaparro_20JunJul18.csv$tipo <- c("Chaparro")
+Chaparro_20JunJul18.csv$archivo <- c("Chaparro_20JunJul18.csv")
+
+Chaparro_24AgoSep18.csv<- Chaparro_24AgoSep18.csv[,2:4]
+Chaparro_24AgoSep18.csv$tipo <-c("Chaparro")
+Chaparro_24AgoSep18.csv$archivo <-c("Chaparro_24AgoSep18.csv")
+
+Chaparro_24May18.csv<-Chaparro_24May18.csv[,2:4]
+Chaparro_24May18.csv$tipo <- c("Chaparro")
+Chaparro_24May18.csv$archivo <- c("Chaparro_24May18.csv")
+
+Chaparro_abril18.csv<-Chaparro_abril18.csv[,2:4]
+Chaparro_abril18.csv$tipo <- c("Chaparro")
+Chaparro_abril18.csv$archivo <- c("Chaparro_abril18.csv")
+
+
+
+Chaparros<- rbind(Chaparro_11junio18.csv,Chaparro_20JunJul18.csv,Chaparro_24AgoSep18.csv,Chaparro_24May18.csv,Chaparro_abril18.csv)
+
+
+
+Cuenca__Afuera_11junio18.csv<- Cuenca__Afuera_11junio18.csv[,2:4]
+Cuenca__Afuera_11junio18.csv$tipo <-c("Cuenca_Afuera")
+
+Cuenca__Afuera_20JunJul18.csv<-Cuenca__Afuera_20JunJul18.csv[,2:4]
+Cuenca__Afuera_20JunJul18.csv$tipo <-c("Cuenca_Afuera")
+
+Cuenca__Afuera_24AgoSep18.csv<-Cuenca__Afuera_24AgoSep18.csv[,2:4]
+Cuenca__Afuera_24AgoSep18.csv$tipo<- c("Cuenca_Afuera")
+
+Cuenca__Afuera_24May18.csv<-Cuenca__Afuera_24May18.csv[,2:4]
+Cuenca__Afuera_24May18.csv$tipo<-c("Cuenca_Afuera")
+
+Cuenca__Afuera_abril18.csv<-Cuenca__Afuera_abril18.csv[,2:4]
+Cuenca__Afuera_abril18.csv$tipo<-c("Cuenca_Afuera")
+
+
+Cuenca_Afuera <- rbind(Cuenca__Afuera_11junio18.csv,Cuenca__Afuera_20JunJul18.csv,Cuenca__Afuera_24AgoSep18.csv,Cuenca__Afuera_24May18.csv,Cuenca__Afuera_abril18.csv)
+
+Cuenca_Adentro_11junio18.csv<-Cuenca_Adentro_11junio18.csv[,2:4]
+Cuenca_Adentro_11junio18.csv$tipo<-c("Cuenca_adentro")
+
+Cuenca_Adentro_20JunJul18.csv<-Cuenca_Adentro_20JunJul18.csv[,2:4]
+Cuenca_Adentro_20JunJul18.csv$tipo<-c("Cuenca_adentro")
+
+Cuenca_Adentro_24AgoSep18.csv<-Cuenca_Adentro_24AgoSep18.csv[,2:4]
+Cuenca_Adentro_24AgoSep18.csv$tipo<-c("Cuenca_adentro")
+
+Cuenca_Adentro_24May18.csv<-Cuenca_Adentro_24May18.csv[,2:4]
+Cuenca_Adentro_24May18.csv$tipo<-c("Cuenca_adentro")
+
+Cuenca_Adentro_abril18.csv<-Cuenca_Adentro_abril18.csv[,2:4]
+Cuenca_Adentro_abril18.csv$tipo<-c("Cuenca_adentro")
+
+Cuenca_Andentro <- rbind(Cuenca_Adentro_11junio18.csv,Cuenca_Adentro_20JunJul18.csv,Cuenca_Adentro_24AgoSep18.csv,Cuenca_Adentro_24May18.csv,Cuenca_Adentro_abril18.csv)
+str(Cuenca_Andentro)
+colnames(Cuenca_Andentro)<- c("fecha","presion","temp", "tipo")
+colnames(Cuenca_Afuera) <-  c("fecha","presion","temp", "tipo")
+
+Avicenias<-Avicenias[1:4]
+
+Manglares <- rbind(Avicenias,Cuenca_Afuera,Cuenca_Andentro)
+
+
+
+ggplot()+
+  geom_line(data=Manglares, aes(x=fecha, y=presion, color=tipo))+
+  theme_light()
   
 
-grid.arrange(GCuenAden18,GCuenAfuera18, nrow=2)
+
+
+
+
+
+
+
 
 

@@ -13,8 +13,10 @@ source("PresionATMValladolid2010.R")
 
 #Abrimos los datos y los hacemos en una señal de tiempo. 
 
-Avicenias <- read.csv("../DatosMAnglar/Avicenias.csv")
-Avicenias$Fecha.Tiempo..GMT.05.00 <- as.POSIXct(strptime(Avicenias$Fecha.Tiempo..GMT.05.00, format = "%m/%d/%Y %I:%M:%S %p"))
+Avicenias <- read.csv("../../../../Desktop/Acomodados/11_JUNIO 2018GMT6/Chaparro_11junio18.csv")
+str(Avicenias)
+colnames(Avicenias)<- c("n", "date","Presion mbar","Temp °C")
+Avicenias$date <- as.POSIXct(strptime(Avicenias$date, format = "%m/%d/%Y %I:%M:%S %p"))
 
 #str(Avicenias)
 
