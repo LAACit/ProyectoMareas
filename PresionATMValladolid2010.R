@@ -7,7 +7,7 @@ library(ggplot2)
 library(lubridate)
 
 
-source("../../../GraficasSitosdeEstudio.R")
+source( "./GraficasSitosdeEstudio.R")
 
 PO18_1<-read.csv("../../../../DatosMAnglar/PresionesYuctán/CGSMN-B00.8.-23-0000154/P_18_1c.csv")
 PO18_2 <- read.csv("../../../../DatosMAnglar/PresionesYuctán/CGSMN-B00.8.-23-0000154/PROGRESO_2018_02.csv")
@@ -60,30 +60,31 @@ Manglares<-rename(Manglares,Fecha=fecha)
 
 #Selcccion tipo de manglar 
 
-
 tipo<-distinct(Manglares,tipo)
-
 tipo
-view(tipo)
 entrada<- readline(prompt="Tipo de manglar; ")
 
-
+#unimos los dos df para tener los datos de presión corregidos 
 NivelesAvicenias<-Manglares[Manglares$tipo==entrada,]%>%drop_na()
-
-
 NivelesAvicenias<-left_join(NivelesAvicenias,PO1718_1)%>%drop_na()
 
 #Se restan los nieles 
 NivelesAvicenias$corregido<-NivelesAvicenias$presion-NivelesAvicenias$PresionATM
 
+#eliminamos lo que no necesitamos 
+rm(list=ls()[! ls() %in% c("NivelesAvicenias","entrada","Manglares")])
 
+#Graficamos lo resultados 
 d<-ggplot()+
   geom_line(data=NivelesAvicenias,aes(x=Fecha,y=presion, color="presion sensor"))+
-  geom_line(data=NivelesAvicenias,aes(x=Fecha,y=PresionATM, color="presion atmosferica"))
+  geom_line(data=NivelesAvicenias,aes(x=Fecha,y=PresionATM, color="presion atmosferica"))+
+  ggtitle(paste("Niveles",entrada ))
 s<-ggplot()+
-  geom_line(data=NivelesAvicenias,aes(x=Fecha,y=corregido, color="nivel orregido"))
+  geom_line(data=NivelesAvicenias,aes(x=Fecha,y=corregido, color="nivel orregido"))+
+  ggtitle(paste("Niveles",entrada ))
  
 grid.arrange(d,s,nrow=2) 
+
 
 
 

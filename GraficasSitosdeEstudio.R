@@ -6,7 +6,7 @@ library(ggplot2)
 
 #Importamos los datos en este caso los csv del 2018 
 
-setwd("../../Datos_Acomodados_CelCop/2018/")
+setwd("../ProyectoMareas/Datos_Hobboq/Datos_Acomodados_CelCop/2018/")
 
 temp = list.files(pattern="*.csv")
 for (i in 1:length(temp)) assign(temp[i], read.csv(temp[i]))
