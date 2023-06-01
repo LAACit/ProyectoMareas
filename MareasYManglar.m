@@ -22,7 +22,7 @@ nat=isnat(manglares.fecha);
 nat=manglares(nat,:);
 
 %rellenamos aquellos valores que son NAT 
-%ahora los podrÌamos  interpolar para esas horas que faltan. 
+%ahora los podr√≠amos  interpolar para esas horas que faltan. 
 manglaresInter= fillmissing(manglares.fecha,'linear');
 %Ahora que ya lo tenemos sustituimos los valores 
 manglares.fecha=manglaresInter;
@@ -32,7 +32,7 @@ manglares = sortrows(manglares,'fecha','ascend');
 
 
 
-%como tiene datos muy distantes del 2017, los descartamos y dejamo sÛlo los
+%como tiene datos muy distantes del 2017, los descartamos y dejamo s√≥lo los
 %del 2108 
 t2018=datetime(2018,01,01,0,0,0)
 t2019=datetime(2019,01,01,0,0,0)
@@ -91,7 +91,7 @@ ylabel("presion (mbar)")
 xlabel("fecha")
 
 
-%podemos ir calculando lo promedios de las seÒales
+%podemos ir calculando lo promedios de las se√±ales
 
 PromAvicenas=mean(manglares_Avicenia.presionMbarCorregido)
 
@@ -104,12 +104,13 @@ PromCuencaAfuera=mean(manglares_Cuenca_Afuera.presionMbarCorregido)
 
 
 
-%%%%%%%%%%%%%%%%%%%%% AHORA PARA LA SE—AL DE MAREA%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% AHORA PARA LA SE√ëAL DE MAREA%%%%%%%%%%%%%%%%%%%%%
 
 mareas=readtable("./Datos/datosHoraMareaCelestunRadar.csv")
 mareas.Fecha=datetime(mareas.Fecha); 
+mareas.presion=mareas.presion/10
 
-%Hacemos un plot para ver como est√°n los datos
+%Hacemos un plot para ver como est√É¬°n los datos
 
 
 %figure(3)
@@ -129,16 +130,16 @@ mareasNAT=mareas(NAT,:);
 %Si tiene datos faltantes entonces los interpolamos 
 
 %rellenamos aquellos valores que son NAT 
-%ahora los podrÌamos  interpolar para esas horas que faltan. 
+%ahora los podr√≠amos  interpolar para esas horas que faltan. 
 mareasInter= fillmissing(mareas.Fecha,'linear');
 %Ahora que ya lo tenemos sustituimos los valores 
 mareas.Fecha=mareasInter;
 
-%podemos cortar los datos para el mismo periodo que la seÒales de manglares
+%podemos cortar los datos para el mismo periodo que la se√±ales de manglares
 %
 
-t2018=datetime(2018,01,01,0,0,0)
-t2019=datetime(2018,08,25,0,0,0)
+t2018=datetime(2018,01,01,0,0,0);
+t2019=datetime(2018,08,25,0,0,0);
 T2018=isbetween(mareas.Fecha,t2018,t2019);
 mareas=mareas(T2018,:);
 
@@ -147,7 +148,7 @@ mareas=mareas(T2018,:);
 %ordenamos los datos 
 mareas = sortrows(mareas,'Fecha','ascend');
 
-%Hacemos un plot para ver como est√°n los datos 
+%Hacemos un plot para ver como est√É¬°n los datos 
 figure(4)
 plot(mareas.Fecha,mareas.presion)
 title('Mareas')
@@ -156,16 +157,24 @@ ylabel('nivel (?)')
 
 
 
-
-%Ahora podrÌamos ir obteniedo los valores necesarios par ahcer furier 
+%Ahora podr√≠amos ir obteniedo los valores necesarios par ahcer furier 
 %primero obtenermos los valores de frecuencia de muestreo. si tenemos datos
-%cada hora, la frecuencua en hz serÌa 1/t(s). donde t=3600 s
+%cada hora, la frecuencua en hz ser√≠a 1/t(s). donde t=3600 s
 
-t=3600 %intervalo entre muestreos
-Nq=1/2.*t
-Fs=1/t  %Frecuencia de muestreo 
-L=length(mareas.Fecha) %longitud de los datos que tenemos
-t=mareas.Fecha  %vector de tiempo 
+t=3600; %intervalo entre muestreos son cada hora=3600s
+Fs=1/t; %Frecuencia de muestreo
+L=length(mareas.Fecha); %longitud de los datos que tenemos
+
+Nq=1/2.*t; %minima frecuencia que podemos recuperar 
+ 
+
+%Calculamos el promedio 
+PromMareas=mean(mareas.presion)
+
+%lo restamos a la se√±al original 
+
+mareas.presion=mareas.presion-PromMareas
+
 
 %Se puede hacer un fft a los datos de nivel de la marea 
 Y=fft(mareas.presion)
@@ -178,11 +187,15 @@ f = Fs*(0:(L/2))/L;
 
 figure(5)
 plot(f,P1) 
-title("Single-Sided Amplitude Spectrum of X(t)")
-xlabel("f (Hz)")
-ylabel("|P1(f)|")
-ylim([0,2])
-xlim([-1,100])
+title("FFt de marea")
+xlabel("f(Hz)")
+ylabel("Amplitud de marea")
+ylim([0,0.3])
+
+
+
+
+
 
 
 
